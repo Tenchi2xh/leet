@@ -1,12 +1,15 @@
 [tool.poetry]
 name = "2xh-leet"
-version = "0.1.0"
+version = "0.1.1"
 description = "Library of Eclectic Experiments by Tenchi"
 authors = ["Hamza Haiken <tenchi@team2xh.net>"]
 license = "MIT"
 packages = [
     { include = "leet" },
 ]
+repository = "https://github.com/Tenchi2xh/leet"
+homepage = "https://github.com/Tenchi2xh/leet"
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.9"
