@@ -4,6 +4,9 @@ version = "0.1.0"
 description = "Library of Eclectic Experiments by Tenchi"
 authors = ["Hamza Haiken <tenchi@team2xh.net>"]
 license = "MIT"
+packages = [
+    { include = "leet" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.9"
