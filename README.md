@@ -29,6 +29,13 @@ log.info("Hello")
 log.warn("World")
 ```
 
+If using MyPy (or if you don't like monkeypatching) you can import the logger explicitly in each module as needed:
+
+```py
+from leet.logging import log
+log.info("Explicit import")
+```
+
 ### Progress bars
 
 Also provides a progress bar (from [WoLpH/python-progressbar](https://github.com/WoLpH/python-progressbar)) that fits in the theme:

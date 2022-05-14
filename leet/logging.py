@@ -26,8 +26,8 @@ colors = [
     ]
 ]
 
-logger = logging.getLogger("Rack")
-logger.setLevel(logging.DEBUG)
+log = logging.getLogger("Rack")
+log.setLevel(logging.DEBUG)
 
 current_width = 10 if DYNAMIC_WIDTH else 30
 max_width = 30
@@ -88,7 +88,7 @@ class LoggingFilter(logging.Filter):
         return True
 
 
-logger.addFilter(LoggingFilter())
+log.addFilter(LoggingFilter())
 
 formatter = logging.Formatter(
     "{asctime:8} │ {levelname} │ {fullname} │ {message}",
@@ -97,6 +97,8 @@ formatter = logging.Formatter(
     style="{"
 )
 
+
+# TODO: Find way to echo through logger and set the logging level
 
 def ProgressBar(*args, **kwargs):
     progress = progressbar.ProgressBar(
@@ -123,7 +125,6 @@ logging.addLevelName(logging.INFO,               "  inf  "        )  # noqa
 logging.addLevelName(logging.WARNING,  fg(208) + "warning" + fg.rs)
 logging.addLevelName(logging.ERROR,    fg(196) + " error " + fg.rs)
 logging.addLevelName(logging.CRITICAL, fg(196) + " fatal " + fg.rs)
-logger.addHandler(handler)
+log.addHandler(handler)
 
-# TODO: Have a separate import that doesn't touch builtins and gives a logger
-builtins.log = logger  # type: ignore
+builtins.log = log  # type: ignore
