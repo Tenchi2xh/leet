@@ -97,25 +97,6 @@ formatter = logging.Formatter(
     style="{"
 )
 
-
-# TODO: Find way to echo through logger and set the logging level
-
-def ProgressBar(*args, **kwargs):
-    progress = progressbar.ProgressBar(
-        widgets=[
-            progressbar.CurrentTime(format="%(current_time)s"),
-            " │    %    │                                │"
-            " ", progressbar.SimpleProgress(),
-            " ", progressbar.Percentage(format="(%(percentage)d%%)"),
-            " ", progressbar.Bar(left=" ", right=" ", marker="▓", fill="░"),
-            " ", progressbar.Timer(),
-            " ", progressbar.AdaptiveETA(),
-        ],
-        redirect_stdout=True,
-    )
-    return progress(*args, **kwargs)
-
-
 handler = logging.StreamHandler()
 handler.setLevel(logging.DEBUG)
 handler.setFormatter(formatter)
@@ -128,3 +109,39 @@ logging.addLevelName(logging.CRITICAL, fg(196) + " fatal " + fg.rs)
 log.addHandler(handler)
 
 builtins.log = log  # type: ignore
+
+
+class log_progress(object):
+    @staticmethod
+    def progressBar(log_level, iterable):
+        if log_level > log.getEffectiveLevel():
+            return iterable
+
+        progress = progressbar.ProgressBar(
+            widgets=[
+                progressbar.CurrentTime(format="%(current_time)s"),
+                " │    %    │                                │"
+                " ", progressbar.SimpleProgress(),
+                " ", progressbar.Percentage(format="(%(percentage)d%%)"),
+                " ", progressbar.Bar(left=" ", right=" ", marker="▓", fill="░"),
+                " ", progressbar.Timer(),
+                " ", progressbar.AdaptiveETA(),
+            ],
+            redirect_stdout=True,
+        )
+        return progress(iterable)
+
+    @staticmethod
+    def debug(iterable): return log_progress.progressBar(logging.DEBUG, iterable)
+
+    @staticmethod
+    def info(iterable): return log_progress.progressBar(logging.INFO, iterable)
+
+    @staticmethod
+    def warning(iterable): return log_progress.progressBar(logging.WARNING, iterable)
+
+    @staticmethod
+    def error(iterable): return log_progress.progressBar(logging.ERROR, iterable)
+
+    @staticmethod
+    def critical(iterable): return log_progress.progressBar(logging.CRITICAL, iterable)

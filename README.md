@@ -42,9 +42,9 @@ Also provides a progress bar (from [WoLpH/python-progressbar](https://github.com
 
 ```py
 from time import sleep
-from leet.logging import ProgressBar
+from leet.logging import log_progress
 
-for i in ProgressBar(range(10)):
+for i in log_progress.debug(range(10)):
     sleep(1)
     log.info("Working on %d..." % i)
 ```
